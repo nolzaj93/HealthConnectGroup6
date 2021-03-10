@@ -68,6 +68,8 @@ public class RequestConversation extends javax.swing.JFrame {
         sql = "update Message set DUsername=? where RID =?";
         pst=conn.prepareStatement(sql);
         pst.setString(1, userID);
+        String rid = Integer.toString(requestNumber);
+        pst.setString(2, rid);
         pst.execute();
       }
 
@@ -89,6 +91,7 @@ public class RequestConversation extends javax.swing.JFrame {
       pst=conn.prepareStatement(sql);
       String temp = Integer.toString(requestNumber);
       pst.setString(1, temp);
+
       rs = pst.executeQuery();
       if("Closed".equals(rs.getString("Status")))
       {

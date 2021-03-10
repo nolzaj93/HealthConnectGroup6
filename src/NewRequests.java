@@ -169,7 +169,7 @@ public class NewRequests extends javax.swing.JFrame {
         pst=conn.prepareStatement(sql);
         String temp = Integer.toString(count);
         pst.setString(1, temp);
-        pst.setString(2, userID);
+        pst.setString(2, "");
         Date date = new Date();
         String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
         pst.setString(3, timestamp);
