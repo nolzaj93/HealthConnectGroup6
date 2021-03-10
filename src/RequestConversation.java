@@ -30,7 +30,7 @@ public class RequestConversation extends javax.swing.JFrame {
     userID = new_userID;
     userType = new_userType;
     try {
-      Class.forName("com.mysql.jdbc.DriverC");
+      Class.forName("com.mysql.jdbc.Driver");
       conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
