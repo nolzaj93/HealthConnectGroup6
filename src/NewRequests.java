@@ -28,7 +28,7 @@ public class NewRequests extends javax.swing.JFrame {
     userID = new_userID;
     try {
       Class.forName("org.sqlite.JDBC");
-      conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Andrea\\Documents\\NetBeansProjects\\health.sqlite");
+      conn = DriverManager.getConnection("jdbc:sqlite:health.sqlite");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
       String sql ="select RID from Request";

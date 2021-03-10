@@ -26,7 +26,7 @@ import java.sql.SQLException;
           Connection conn = null;
       try {
         Class.forName("org.sqlite.JDBC");
-        conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Andrea\\Documents\\NetBeansProjects\\health.sqlite");
+        conn = DriverManager.getConnection("jdbc:sqlite:health.sqlite");
         //JOptionPane.showMessageDialog (null, "Connected");
         Statement statement = conn.createStatement();
         ResultSet hc = statement.executeQuery("select * from Patient");
