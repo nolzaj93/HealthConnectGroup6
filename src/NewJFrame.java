@@ -20,8 +20,8 @@ public class NewJFrame extends javax.swing.JFrame {
   public NewJFrame() {
     initComponents();
     try {
-      Class.forName("org.sqlite.JDBC");
-      conn = DriverManager.getConnection("jdbc:sqlite:health.sqlite");
+      Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
     }

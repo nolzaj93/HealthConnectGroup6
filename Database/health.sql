@@ -12,7 +12,7 @@ INSERT INTO `Doctor` (`username`,`password`) VALUES ('doctor','123');
 
 CREATE TABLE `Patient` (
                          `username` varchar(255) NOT NULL,
-                         `password` varchar(255) NOT NULL,
+                         `password` varchar(255) NOT NULL
 
 );
 
@@ -30,6 +30,6 @@ CREATE TABLE `Request` (
 CREATE TABLE `Message` (
                          `RID` varchar(255) NOT NULL,
                          `DUsername` varchar(255) NOT NULL,
-                         `Date` varchar(255) NOT NULL,
-                         `Status` varchar(255) NOT NULL
+                         `TimeStamp` varchar(255) NOT NULL,
+                         `Message` varchar(255) NOT NULL
 );

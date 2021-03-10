@@ -25,8 +25,8 @@ import java.sql.SQLException;
       //test connection
           Connection conn = null;
       try {
-        Class.forName("org.sqlite.JDBC");
-        conn = DriverManager.getConnection("jdbc:sqlite:health.sqlite");
+        Class.forName("com.mysql.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
         //JOptionPane.showMessageDialog (null, "Connected");
         Statement statement = conn.createStatement();
         ResultSet hc = statement.executeQuery("select * from Patient");

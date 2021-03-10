@@ -30,8 +30,8 @@ public class RequestConversation extends javax.swing.JFrame {
     userID = new_userID;
     userType = new_userType;
     try {
-      Class.forName("org.sqlite.JDBC");
-      conn = DriverManager.getConnection("jdbc:sqlite:health.sqlite");
+      Class.forName("com.mysql.jdbc.DriverC");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
     }

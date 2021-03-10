@@ -25,8 +25,8 @@ public final class DoctorView extends javax.swing.JFrame {
   public DoctorView(String doctor) {
     initComponents();
     try {
-      Class.forName("org.sqlite.JDBC");
-      conn = DriverManager.getConnection("jdbc:sqlite:health.sqlite");
+      Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
     }

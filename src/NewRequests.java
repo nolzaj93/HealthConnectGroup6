@@ -27,8 +27,8 @@ public class NewRequests extends javax.swing.JFrame {
     initComponents();
     userID = new_userID;
     try {
-      Class.forName("org.sqlite.JDBC");
-      conn = DriverManager.getConnection("jdbc:sqlite:health.sqlite");
+      Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
       String sql ="select RID from Request";
@@ -169,7 +169,7 @@ public class NewRequests extends javax.swing.JFrame {
         pst=conn.prepareStatement(sql);
         String temp = Integer.toString(count);
         pst.setString(1, temp);
-        pst.setString(2, null);
+        pst.setString(2, userID);
         Date date = new Date();
         String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
         pst.setString(3, timestamp);
