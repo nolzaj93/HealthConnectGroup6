@@ -344,7 +344,7 @@ public final class PatientView extends javax.swing.JFrame {
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        new PatientView(s.getUsername()).setVisible(true);
+        new PatientView(s.username).setVisible(true);
       }
     });
   }

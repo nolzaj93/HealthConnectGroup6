@@ -32,8 +32,8 @@ public class LoginTest {
 
   @Test
   public void emptyPatientLoginTest() {
-    login.setUsername("");
-    login.setPassword("");
+    login.txt_username.setText("");
+    login.txt_password.setText("");
     String output = login.LoginAsPatientActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
 
     assertEquals("invalid", output);
@@ -52,17 +52,28 @@ public class LoginTest {
 
   @Test
   public void emptyDoctorLoginTest() {
-    login.setUsername("");
-    login.setPassword("");
+    login.txt_username.setText("");
+    login.txt_password.setText("");
     String output = login.LoginAsDoctorActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
 
     assertEquals("invalid", output);
   }
 
-//  @Test
-//  public void invalidSqlDriverTest() {
-////    String output = login.login("john", "123", new Main(), "");
-////
-////    assertEquals("sql error", output);
-//  }
+  @Test
+  public void invalidDoctorSqlDriverTest() {
+    login.txt_username.setText("sql error");
+    login.txt_password.setText("");
+    String output = login.LoginAsDoctorActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
+
+    assertEquals("error", output);
+  }
+
+  @Test
+  public void invalidPatientSqlDriverTest() {
+    login.txt_username.setText("sql error");
+    login.txt_password.setText("");
+    String output = login.LoginAsPatientActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
+
+    assertEquals("error", output);
+  }
 }

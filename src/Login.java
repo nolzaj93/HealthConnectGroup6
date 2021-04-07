@@ -13,7 +13,7 @@ public class Login extends javax.swing.JFrame {
   ResultSet rs=null;
   PreparedStatement pst=null;
   int curRow=0;
-  private String username;
+  public String username;
   private String password;
 
   /**
@@ -21,37 +21,20 @@ public class Login extends javax.swing.JFrame {
    */
   public Login() {
     initComponents();
-    try {
-      Class.forName("com.mysql.jdbc.Driver");
-      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
-      //JOptionPane.showMessageDialog (null, "Connected");
-      Statement statement = conn.createStatement();
-    }
-    catch(ClassNotFoundException | SQLException e){
-      JOptionPane.showMessageDialog(null, e);
-    }
+
     Toolkit toolkit = getToolkit();
     Dimension size = toolkit.getScreenSize();
     setLocation(size.width/2 - getWidth()/2,
         size.height/2 - getHeight()/2);
   }
 
-
-  public String getUsername(){
-    return this.username;
-  }
-
   public void setUsername(String username){
     this.username = this.txt_username.getText();
   }
 
-  public String getPassword() {
-    return password;
-  }
 
-  public void setPassword(String password) {
-    this.password = this.txt_password.getText();
-  }
+
+
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,11 +158,19 @@ public class Login extends javax.swing.JFrame {
     // TODO add your handling code here:
     String sql ="select * from Patient where username=? and password=?";
     try{
+
+      Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
+      //JOptionPane.showMessageDialog (null, "Connected");
+      Statement statement = conn.createStatement();
+
+
+      if(txt_username.getText().equals("sql error")) {sql = "";}
       pst=conn.prepareStatement(sql);
       pst.setString(1, txt_username.getText());
       pst.setString(2, txt_password.getText());
-      setUsername(username);
-      setPassword(password);
+      setUsername(txt_username.getText());
+
       //JOptionPane.showMessageDialog (null, "Username = " + username);
       rs = pst.executeQuery();
 
@@ -197,7 +188,7 @@ public class Login extends javax.swing.JFrame {
       }
     }
 
-    catch(HeadlessException | SQLException e){
+    catch(ClassNotFoundException | HeadlessException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
       return "error";
     }
@@ -209,11 +200,18 @@ public class Login extends javax.swing.JFrame {
     // TODO add your handling code here:
     String sql ="select * from Doctor where username=? and password=?";
     try{
+
+      Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
+      //JOptionPane.showMessageDialog (null, "Connected");
+      Statement statement = conn.createStatement();
+
+
+      if(txt_username.getText().equals("sql error")) {sql = "";}
       pst=conn.prepareStatement(sql);
       pst.setString(1, txt_username.getText());
       pst.setString(2, txt_password.getText());
-      username = txt_username.getText();
-      setUsername(username);
+      setUsername(txt_username.getText());
 
       rs = pst.executeQuery();
       if(rs.next()){
@@ -230,7 +228,7 @@ public class Login extends javax.swing.JFrame {
       }
     }
 
-    catch(HeadlessException | SQLException e){
+    catch(ClassNotFoundException | HeadlessException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
       return "error";
     }
@@ -246,35 +244,35 @@ public class Login extends javax.swing.JFrame {
     // TODO add your handling code here:
   }
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-     */
-    try {
-      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          javax.swing.UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
-      }
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
-
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      @Override
-      public void run() {
-        new Login().setVisible(true);
-      }
-    });
-  }
+//  /**
+//   * @param args the command line arguments
+//   */
+//  public static void main(String args[]) {
+//    /* Set the Nimbus look and feel */
+//    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+//     */
+//    try {
+//      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//        if ("Nimbus".equals(info.getName())) {
+//          javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//          break;
+//        }
+//      }
+//    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+//      java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//    }
+//    //</editor-fold>
+//
+//    /* Create and display the form */
+//    java.awt.EventQueue.invokeLater(new Runnable() {
+//      @Override
+//      public void run() {
+//        new Login().setVisible(true);
+//      }
+//    });
+//  }
 
   // Variables declaration - do not modify
   private javax.swing.JButton LoginAsDoctor;

@@ -164,7 +164,7 @@ public class Profile extends javax.swing.JFrame {
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        new Profile(s.getUsername()).setVisible(true);
+        new Profile(s.username).setVisible(true);
       }
     });
   }

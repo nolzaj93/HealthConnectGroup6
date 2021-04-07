@@ -346,7 +346,7 @@ public class RequestConversation extends javax.swing.JFrame {
     }
     //</editor-fold>
     Login n = new Login();
-    final DoctorView d = new DoctorView(n.getUsername());
+    final DoctorView d = new DoctorView(n.username);
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override

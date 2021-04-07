@@ -411,7 +411,7 @@ public final class DoctorView extends javax.swing.JFrame {
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        new DoctorView(s.getUsername()).setVisible(true);
+        new DoctorView(s.username).setVisible(true);
       }
     });
   }

@@ -234,7 +234,7 @@ public class NewRequests extends javax.swing.JFrame {
     }
     //</editor-fold>
     Login n = new Login();
-    final PatientView v = new PatientView(n.getUsername());
+    final PatientView v = new PatientView(n.username);
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
