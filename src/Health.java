@@ -43,7 +43,7 @@ import java.sql.SQLException;
           System.out.println("Password = " + hc.getString("Password"));
         }
         //open login page
-        NewJFrame s= new NewJFrame();
+        Login s= new Login();
         s.setVisible(true);
       }
       catch(ClassNotFoundException | SQLException e){

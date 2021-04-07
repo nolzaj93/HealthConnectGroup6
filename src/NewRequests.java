@@ -233,7 +233,7 @@ public class NewRequests extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(NewRequests.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     //</editor-fold>
-    NewJFrame n = new NewJFrame();
+    Login n = new Login();
     final PatientView v = new PatientView(n.getUsername());
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {

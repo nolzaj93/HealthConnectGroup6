@@ -230,7 +230,7 @@ public final class DoctorView extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(null, "Username and Password is correct");
         element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
         model.addElement(element);
-        while (rs.next()){
+        if(rs.next()){
           element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
           model.addElement(element);
         }
@@ -272,7 +272,7 @@ public final class DoctorView extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(null, "Username and Password is correct");
         element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
         model.addElement(element);
-        while (rs.next()){
+        if(rs.next()){
           element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
           model.addElement(element);
         }
@@ -304,13 +304,13 @@ public final class DoctorView extends javax.swing.JFrame {
       temp_requestID = temp_requestID.substring(0,3);
       requestID = Integer.parseInt(temp_requestID);
       setRequestID(requestID);
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
+//      try{
+//        rs.close();
+//        pst.close();
+//      }
+//      catch(SQLException e){
+//        JOptionPane.showMessageDialog(null, e);
+//      }
       RequestConversation r = new RequestConversation(requestID, username, userType);
       dispose();
       r.setVisible(true);
@@ -337,7 +337,7 @@ public final class DoctorView extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(null, "Username and Password is correct");
         element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
         model.addElement(element);
-        while (rs.next()){
+        if (rs.next()){
           element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
           model.addElement(element);
         }
@@ -371,18 +371,18 @@ public final class DoctorView extends javax.swing.JFrame {
   }
 
   private void logoutActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-    try{
-      rs.close();
-      pst.close();
-    }
-    catch(SQLException e){
-      JOptionPane.showMessageDialog(null, e);
-    }
+//    // TODO add your handling code here:
+//    try{
+//      rs.close();
+//      pst.close();
+//    }
+//    catch(SQLException e){
+//      JOptionPane.showMessageDialog(null, e);
+//    }
     int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
     if(pane==0){
       dispose();
-      NewJFrame n = new NewJFrame();
+      Login n = new Login();
       n.setVisible(true);}
   }
 
@@ -406,7 +406,7 @@ public final class DoctorView extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(DoctorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     //</editor-fold>
-    final NewJFrame s = new NewJFrame();
+    final Login s = new Login();
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override

@@ -8,16 +8,16 @@ import java.sql.*;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class NewJFrame extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
   Connection conn=null;
   ResultSet rs=null;
   PreparedStatement pst=null;
   int curRow=0;
   private String username;
   /**
-   * Creates new form NewJFrame
+   * Creates new form Login
    */
-  public NewJFrame() {
+  public Login() {
     initComponents();
     try {
       Class.forName("com.mysql.jdbc.Driver");
@@ -265,7 +265,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     //</editor-fold>
 
@@ -273,7 +273,7 @@ public class NewJFrame extends javax.swing.JFrame {
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        new NewJFrame().setVisible(true);
+        new Login().setVisible(true);
       }
     });
   }

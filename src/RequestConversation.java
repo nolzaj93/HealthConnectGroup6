@@ -65,26 +65,19 @@ public class RequestConversation extends javax.swing.JFrame {
       }
       if("Doctor".equals(userType))
       {
-        sql = "update Message set DUsername=? where RID =?";
+        sql = "update health.Message set DUsername= ? where RID = ?";
         pst=conn.prepareStatement(sql);
         pst.setString(1, userID);
         String rid = Integer.toString(requestNumber);
         pst.setString(2, rid);
-        pst.execute();
+        pst.executeUpdate();
       }
 
     }
 
     catch(HeadlessException | SQLException e){
-      JOptionPane.showMessageDialog(null, e);}finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
-    }
+      JOptionPane.showMessageDialog(null, e);}
+
 
     sql = "select Status from Request where RID =?";
     try{
@@ -93,23 +86,17 @@ public class RequestConversation extends javax.swing.JFrame {
       pst.setString(1, temp);
 
       rs = pst.executeQuery();
-      if("Closed".equals(rs.getString("Status")))
-      {
-        closeButton.setEnabled(false);
-        addButton.setEnabled(false);
+      while(rs.next()) {
+        if ("Closed".equals(rs.getString("Status"))) {
+          closeButton.setEnabled(false);
+          addButton.setEnabled(false);
+        }
       }
     }
     catch(SQLException e){
       JOptionPane.showMessageDialog(null, e);
-    }finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
     }
+
   }
 
   /**
@@ -298,14 +285,14 @@ public class RequestConversation extends javax.swing.JFrame {
 
       if("Doctor".equals(userType))
       {
-        NewJFrame n = new NewJFrame();
+        Login n = new Login();
         DoctorView d = new DoctorView(userID);
         d.setVisible(true);
         dispose();
       }
       else
       {
-        NewJFrame n = new NewJFrame();
+        Login n = new Login();
         PatientView p = new PatientView(userID);
         p.setVisible(true);
         dispose();
@@ -324,14 +311,14 @@ public class RequestConversation extends javax.swing.JFrame {
     }
     if("Doctor".equals(userType))
     {
-      NewJFrame n = new NewJFrame();
+      Login n = new Login();
       DoctorView d = new DoctorView(userID);
       d.setVisible(true);
       dispose();
     }
     else
     {
-      NewJFrame n = new NewJFrame();
+      Login n = new Login();
       PatientView p = new PatientView(userID);
       p.setVisible(true);
       dispose();
@@ -358,7 +345,7 @@ public class RequestConversation extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(RequestConversation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     //</editor-fold>
-    NewJFrame n = new NewJFrame();
+    Login n = new Login();
     final DoctorView d = new DoctorView(n.getUsername());
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {

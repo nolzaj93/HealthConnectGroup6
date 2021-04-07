@@ -224,15 +224,7 @@ public final class PatientView extends javax.swing.JFrame {
     }
 
     catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
-    }
+      JOptionPane.showMessageDialog(null, e);}
   }
 
   private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,15 +258,8 @@ public final class PatientView extends javax.swing.JFrame {
     }
 
     catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
-    }
+      JOptionPane.showMessageDialog(null, e);}
+
   }
 
   private void closedButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,15 +293,7 @@ public final class PatientView extends javax.swing.JFrame {
     }
 
     catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
-    }
+      JOptionPane.showMessageDialog(null, e);}
   }
 
   private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +339,7 @@ public final class PatientView extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(PatientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     //</editor-fold>
-    final NewJFrame s = new NewJFrame();
+    final Login s = new Login();
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override

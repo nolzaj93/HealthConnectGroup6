@@ -135,7 +135,7 @@ public class Profile extends javax.swing.JFrame {
     int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
     if(pane==0){
       dispose();
-      NewJFrame n = new NewJFrame();
+      Login n = new Login();
       n.setVisible(true);}
   }
 
@@ -159,7 +159,7 @@ public class Profile extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     //</editor-fold>
-    final NewJFrame s = new NewJFrame();
+    final Login s = new Login();
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
