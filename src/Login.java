@@ -14,6 +14,8 @@ public class Login extends javax.swing.JFrame {
   PreparedStatement pst=null;
   int curRow=0;
   private String username;
+  private String password;
+
   /**
    * Creates new form Login
    */
@@ -43,6 +45,13 @@ public class Login extends javax.swing.JFrame {
     this.username = this.txt_username.getText();
   }
 
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = this.txt_password.getText();
+  }
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -162,15 +171,15 @@ public class Login extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void LoginAsPatientActionPerformed(java.awt.event.ActionEvent evt) {
+  public String LoginAsPatientActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     String sql ="select * from Patient where username=? and password=?";
     try{
       pst=conn.prepareStatement(sql);
       pst.setString(1, txt_username.getText());
       pst.setString(2, txt_password.getText());
-      username = txt_username.getText();
       setUsername(username);
+      setPassword(password);
       //JOptionPane.showMessageDialog (null, "Username = " + username);
       rs = pst.executeQuery();
 
@@ -180,29 +189,23 @@ public class Login extends javax.swing.JFrame {
         Profile s= new Profile(username);
         s.setVisible(true);
         dispose();
+        return "valid";
       }
       else{
         JOptionPane.showMessageDialog(null, "Incorrect username or password.  Please try again.");
-
+        return "invalid";
       }
     }
 
     catch(HeadlessException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
-    }finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
+      return "error";
     }
 
 
   }
 
-  private void LoginAsDoctorActionPerformed(java.awt.event.ActionEvent evt) {
+  public String LoginAsDoctorActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     String sql ="select * from Doctor where username=? and password=?";
     try{
@@ -218,23 +221,18 @@ public class Login extends javax.swing.JFrame {
         DoctorView d= new DoctorView(username);
         d.setVisible(true);
         dispose();
+        return "valid";
       }
       else{
         JOptionPane.showMessageDialog(null, "Incorrect username or password.  Please try again.");
+        return "invalid";
 
       }
     }
 
     catch(HeadlessException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
-    }finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
+      return "error";
     }
 
 
@@ -286,7 +284,7 @@ public class Login extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
   private javax.swing.JSeparator jSeparator1;
-  private javax.swing.JPasswordField txt_password;
+  public javax.swing.JPasswordField txt_password;
   public javax.swing.JTextField txt_username;
   // End of variables declaration
 }
