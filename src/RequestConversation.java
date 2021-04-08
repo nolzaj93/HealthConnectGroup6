@@ -86,6 +86,8 @@ public class RequestConversation extends javax.swing.JFrame {
       pst.setString(1, temp);
 
       rs = pst.executeQuery();
+
+      //Cause of Before Start of Result Set, need while(rs.next()) to iterate
       while(rs.next()) {
         if ("Closed".equals(rs.getString("Status"))) {
           closeButton.setEnabled(false);
