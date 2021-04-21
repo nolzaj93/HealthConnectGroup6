@@ -217,6 +217,11 @@ public final class PatientView extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
+  /**
+   * Patient clicks the In Progress Requests button to view current requests which are
+   * then returned to the DefaultListModel to be displayed to the patient.
+   * @param evt ActionEvent when the In Progress Requests button is clicked.
+   */
   private void InProgressButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     jLabel1.setText("Your Opened Requests");
@@ -251,6 +256,11 @@ public final class PatientView extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, e);}
   }
 
+  /**
+   * Patient clicks the New Requests button to view newly filed requests which are
+   * then returned to the DefaultListModel to be displayed to the patient.
+   * @param evt ActionEvent when the New Requests button is clicked.
+   */
   private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     jLabel1.setText("Your New Requests");
@@ -286,6 +296,11 @@ public final class PatientView extends javax.swing.JFrame {
 
   }
 
+  /**
+   * Patient clicks the Closed Requests button to view completed requests which are
+   * then returned to the DefaultListModel to be displayed to the patient.
+   * @param evt ActionEvent when the Closed Requests button is clicked.
+   */
   private void closedButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     jLabel1.setText("Your Closed Requests");
@@ -320,6 +335,11 @@ public final class PatientView extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, e);}
   }
 
+  /**
+   * The patient may navigate to the previous screen by clicking the Back button within
+   * the GUI.
+   * @param evt ActionEvent when the Back button is clicked.
+   */
   private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     dispose();
@@ -327,9 +347,14 @@ public final class PatientView extends javax.swing.JFrame {
     p.setVisible(true);
   }
 
+  /**
+   * The patient may select and view new requests, in progress requests, and closed requests
+   * that is then displayed back to the user.
+   * @param evt ActionEvent when Open Selected Request button is clicked.
+   */
   private void openRequestActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-    if(jList1.getSelectedIndex() != -1)
+    if(jList1.getSelectedIndex() > 0)
     {
       String temp_requestID = jList1.getSelectedValue().toString();
       temp_requestID = temp_requestID.substring(0,3);
