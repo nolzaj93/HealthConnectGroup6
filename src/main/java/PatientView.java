@@ -41,26 +41,50 @@ public final class PatientView extends javax.swing.JFrame {
 
   }
 
+  /**
+   * Getter method for returning the current username.
+   * @return String username is returned.
+   */
   public String getUsername(){
     return this.username;
   }
 
+  /**
+   * Setter method takes in the current username and sets the username field.
+   * @param username the username to be set.
+   */
   public void setUsername(String username){
     this.username = username;
   }
 
+  /**
+   * Getter method for returning the requestID.
+   * @return returns the current request's ID
+   */
   public int getRequestID(){
     return this.requestID;
   }
 
+  /**
+   * Setter method takes in the current request ID and sets the requestID field.
+   * @param requestID the requestID to be set.
+   */
   public void setRequestID(int requestID){
     this.requestID = requestID;
   }
 
+  /**
+   * Getter method for returning the current user's type (Patient)
+   * @return returns the current user type of Patient.
+   */
   public String getUserType(){
     return this.userType;
   }
 
+  /**
+   * Setter method takes in the current user type of Patient and sets the userType field.
+   * @param userType the current user type of Patient.
+   */
   public void setUserType(String userType){
     this.userType = userType;
   }
@@ -101,11 +125,11 @@ public final class PatientView extends javax.swing.JFrame {
       }
     });
 
-    jList1.setModel(new javax.swing.AbstractListModel() {
-      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-      public int getSize() { return strings.length; }
-      public Object getElementAt(int i) { return strings[i]; }
-    });
+//    jList1.setModel(new javax.swing.AbstractListModel() {
+//      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+//      public int getSize() { return strings.length; }
+//      public Object getElementAt(int i) { return strings[i]; }
+//    });
     jScrollPane1.setViewportView(jList1);
 
     jLabel1.setFont(new java.awt.Font("Eras Demi ITC", 3, 24)); // NOI18N
