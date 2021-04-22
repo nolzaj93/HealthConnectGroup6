@@ -26,12 +26,12 @@ CREATE TABLE `Request` (
                          `Status` varchar(255) NOT NULL
 );
 
-INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('100','patient','2021/10/10','New')
-INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('101','patient','2021/10/10','In Progress')
-INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('102','patient','2021/10/10','Closed')
-INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('103','patient','2021/10/10','New')
-INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('104','patient','2021/10/10','Closed')
-INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('105','patient','2021/10/10','In Progress')
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('100','patient','2021/10/10','New');
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('101','patient','2021/10/10','In Progress');
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('102','patient','2021/10/10','Closed');
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('103','patient','2021/10/10','New');
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('104','patient','2021/10/10','Closed');
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('105','patient','2021/10/10','In Progress');
 
 CREATE TABLE `Message` (
                          `RID` varchar(255) NOT NULL,
@@ -39,3 +39,9 @@ CREATE TABLE `Message` (
                          `TimeStamp` varchar(255) NOT NULL,
                          `Message` varchar(255) NOT NULL
 );
+INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('100','doctor','2021/10/10','Hey');
+INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('101','doctor','2021/10/10','Hey');
+INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('102','doctor','2021/10/10','Hey');
+INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('103','doctor','2021/10/10','Hey');
+INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('104','doctor','2021/10/10','Hey');
+INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('105','doctor','2021/10/10','Hey');

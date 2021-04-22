@@ -107,32 +107,61 @@ public class RequestConversationTest {
 
   }
 
-  @AfterAll
-  public void dropMessageRequestTables() {
-    try {
-      String sql ="drop table Message";
-      pst = conn.prepareStatement(sql);
-      //delete from message
-      pst.execute(sql);
-
-
-      //delete from Request
-      sql ="drop table Request";
-      pst = conn.prepareStatement(sql);
-      pst.execute(sql);
-
-
-//      String sql ="select * from Message where RID=?";
-//      try
-//        pst=conn.prepareStatement(sql);
-//        String temp = Integer.toString(requestNumber);
-//        pst.setString(1, temp);
-//        rs = pst.executeQuery();
-    }
-    catch(SQLException e){
-      JOptionPane.showMessageDialog(null, e);
-    }
-  }
+//  @AfterAll
+//  public void dropMessageRequestTables() {
+//    try {
+//      String sql ="drop table Message";
+//      pst = conn.prepareStatement(sql);
+//      //delete from message
+//      pst.execute(sql);
+//
+//
+//      //delete from Request
+//      sql ="drop table Request";
+//      pst = conn.prepareStatement(sql);
+//      pst.execute(sql);
+//
+//      sql = "CREATE TABLE `Request` (\n"
+//          + "                         `RID` varchar(255) NOT NULL,\n"
+//          + "                         `PUsername` varchar(255) NOT NULL,\n"
+//          + "                         `Date` varchar(255) NOT NULL,\n"
+//          + "                         `Status` varchar(255) NOT NULL\n"
+//          + ");\n"
+//          + "\n"
+//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('100','patient','2021/10/10','New');\n"
+//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('101','patient','2021/10/10','In Progress');\n"
+//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('102','patient','2021/10/10','Closed');\n"
+//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('103','patient','2021/10/10','New');\n"
+//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('104','patient','2021/10/10','Closed');\n"
+//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('105','patient','2021/10/10','In Progress');\n"
+//          + "\n";
+//
+//        sql = "CREATE TABLE `Message` (\n"
+//          + "                         `RID` varchar(255) NOT NULL,\n"
+//          + "                         `DUsername` varchar(255) NOT NULL,\n"
+//          + "                         `TimeStamp` varchar(255) NOT NULL,\n"
+//          + "                         `Message` varchar(255) NOT NULL\n"
+//          + ");\n"
+//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('100','doctor','2021/10/10','Hey');\n"
+//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('101','doctor','2021/10/10','Hey');\n"
+//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('102','doctor','2021/10/10','Hey');\n"
+//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('103','doctor','2021/10/10','Hey');\n"
+//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('104','doctor','2021/10/10','Hey');\n"
+//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('105','doctor','2021/10/10','Hey');";
+//
+//      pst = conn.prepareStatement(sql);
+//      pst.execute(sql);
+////      String sql ="select * from Message where RID=?";
+////      try
+////        pst=conn.prepareStatement(sql);
+////        String temp = Integer.toString(requestNumber);
+////        pst.setString(1, temp);
+////        rs = pst.executeQuery();
+//    }
+//    catch(SQLException e){
+//      JOptionPane.showMessageDialog(null, e);
+//    }
+//  }
 
   /**
    * Test Case ID:
@@ -260,8 +289,6 @@ public class RequestConversationTest {
     requestConversation.backButtonActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
     requestConversation = new RequestConversation(requestID, username, userType);
     requestConversation.closeButtonActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""),"test");
-
-
 
   }
 
