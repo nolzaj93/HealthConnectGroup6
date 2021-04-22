@@ -285,10 +285,10 @@ public final class DoctorView extends javax.swing.JFrame {
                 //JOptionPane.showMessageDialog(null, "Username and Password is correct");
                 String element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
                 model.addElement(element);
-
-//                element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
-//                model.addElement(element);
-
+                while(rs.next()) {
+                    element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
+                    model.addElement(element);
+                }
                 requestsList.setModel(model);
             } catch (Exception ignored) {
 
@@ -345,7 +345,7 @@ public final class DoctorView extends javax.swing.JFrame {
                     //JOptionPane.showMessageDialog(null, "Username and Password is correct");
                     element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
                     model.addElement(element);
-                    if (rs.next()) {
+                    while (rs.next()) {
                         element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
                         model.addElement(element);
                     }
@@ -448,7 +448,7 @@ public final class DoctorView extends javax.swing.JFrame {
                 //JOptionPane.showMessageDialog(null, "Username and Password is correct");
                 String element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
                 model.addElement(element);
-                if (rs.next()) {
+                while (rs.next()) {
                     element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
                     model.addElement(element);
                 }
