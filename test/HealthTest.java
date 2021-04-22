@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class HealthTest {
 
     /**
-     * Test Case ID: TC-D-01
+     * Test Case ID: TC-H-02
      * Purpose: Test that when run the Health system will make the login screen visible to the user
      * Test Setup: The main method of the Health class is called with null passed in as a parameter
      * Input: args: null
@@ -19,7 +19,7 @@ public class HealthTest {
     }
 
     /**
-     * Test Case ID: TC-D-01
+     * Test Case ID: TC-H-02
      * Purpose: Test that when run without a connection to the database the Health system will show a message with
      *          error text describing the issue to the user
      * Test Setup: The main method of the Health class is called with a string array containing "sqlTest" as the first
