@@ -65,12 +65,6 @@ public class RequestConversationTest {
     }
     catch(ClassNotFoundException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
-    }finally {
-      try {
-        rs.close();
-      } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, e);
-      }
     }
 
   //Create new patient request, which inserts to Message and Request table
