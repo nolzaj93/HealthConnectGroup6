@@ -8,18 +8,32 @@ import org.junit.jupiter.api.Test;
 public class LoginTest {
 
   private Login login;
-
+  /**
+   * Creates instance of login before each test.
+   */
   @BeforeEach
   public void setup() {
     login = new Login();
   }
 
+  /**
+   * Cleans up memory by setting login object reference to null.
+   */
   @AfterEach
   public void tearDown() {
     login = null;
   }
 
-
+  /**
+   * Test Case ID:
+   * Requirement ID/Description:
+   * Purpose:
+   * Test Setup:
+   * Test Strategy:
+   * Input:
+   *
+   * Expected Output:
+   */
   @Test
   public void validPatientLoginTest() {
     login.txt_username.setText("patient");
@@ -29,7 +43,16 @@ public class LoginTest {
     assertEquals("valid", output);
   }
 
-
+  /**
+   * Test Case ID:
+   * Requirement ID/Description:
+   * Purpose:
+   * Test Setup:
+   * Test Strategy:
+   * Input:
+   *
+   * Expected Output:
+   */
   @Test
   public void emptyPatientLoginTest() {
     login.txt_username.setText("");
@@ -39,7 +62,16 @@ public class LoginTest {
     assertEquals("invalid", output);
   }
 
-
+  /**
+   * Test Case ID:
+   * Requirement ID/Description:
+   * Purpose:
+   * Test Setup:
+   * Test Strategy:
+   * Input:
+   *
+   * Expected Output:
+   */
   @Test
   public void validDoctorLoginTest() {
     login.txt_username.setText("doctor");
@@ -49,7 +81,16 @@ public class LoginTest {
     assertEquals("valid", output);
   }
 
-
+  /**
+   * Test Case ID:
+   * Requirement ID/Description:
+   * Purpose:
+   * Test Setup:
+   * Test Strategy:
+   * Input:
+   *
+   * Expected Output:
+   */
   @Test
   public void emptyDoctorLoginTest() {
     login.txt_username.setText("");
@@ -59,6 +100,16 @@ public class LoginTest {
     assertEquals("invalid", output);
   }
 
+  /**
+   * Test Case ID:
+   * Requirement ID/Description:
+   * Purpose:
+   * Test Setup:
+   * Test Strategy:
+   * Input:
+   *
+   * Expected Output:
+   */
   @Test
   public void invalidDoctorSqlDriverTest() {
     login.txt_username.setText("sql error");
@@ -68,6 +119,16 @@ public class LoginTest {
     assertEquals("error", output);
   }
 
+  /**
+   * Test Case ID:
+   * Requirement ID/Description:
+   * Purpose:
+   * Test Setup:
+   * Test Strategy:
+   * Input:
+   *
+   * Expected Output:
+   */
   @Test
   public void invalidPatientSqlDriverTest() {
     login.txt_username.setText("sql error");

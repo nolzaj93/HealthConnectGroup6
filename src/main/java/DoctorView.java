@@ -213,7 +213,7 @@ public final class DoctorView extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void newRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  void newRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     viewedRequests.setText("New Requests");
     requestsList.setVisible(true);
@@ -296,7 +296,7 @@ public final class DoctorView extends javax.swing.JFrame {
     }
   }
 
-  private void openSelectedButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  RequestConversation openSelectedButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     if(requestsList.getSelectedIndex() != -1)
     {
@@ -314,9 +314,11 @@ public final class DoctorView extends javax.swing.JFrame {
       RequestConversation r = new RequestConversation(requestID, username, userType);
       dispose();
       r.setVisible(true);
+      return r;
     }
     else
       JOptionPane.showMessageDialog(null, "Please select a request");
+    return null;
   }
 
   private void closeRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,7 +363,7 @@ public final class DoctorView extends javax.swing.JFrame {
     }
   }
 
-  private void requestsListValueChanged(javax.swing.event.ListSelectionEvent evt) {
+  void requestsListValueChanged(javax.swing.event.ListSelectionEvent evt) {
     // TODO add your handling code here:
     if (requestsList.getSelectedIndex() == -1){
       //Nothing was selected.  Do nothing
@@ -426,7 +428,7 @@ public final class DoctorView extends javax.swing.JFrame {
   private javax.swing.JButton logout;
   private javax.swing.JButton newRequestButton;
   private javax.swing.JButton openSelectedButton;
-  private javax.swing.JList requestsList;
+  javax.swing.JList requestsList;
   private javax.swing.JLabel viewedRequests;
   private javax.swing.JLabel welcome;
   // End of variables declaration

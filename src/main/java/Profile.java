@@ -116,21 +116,21 @@ public class Profile extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void makeRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  void makeRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     dispose();
     NewRequests n = new NewRequests(username);
     n.setVisible(true);
   }
 
-  private void viewRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  void viewRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     dispose();
     PatientView p = new PatientView(username);
     p.setVisible(true);
   }
 
-  private void logoutActionPerformed(java.awt.event.ActionEvent evt) {
+  void logoutActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
     if(pane==0){
