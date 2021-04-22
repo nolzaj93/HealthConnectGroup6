@@ -9,45 +9,45 @@ import java.sql.Statement;
 import javax.swing.*;
 
 public final class DoctorView extends javax.swing.JFrame {
-    Connection conn = null;
-    ResultSet rs = null;
-    PreparedStatement pst = null;
-    int curRow = 0;
-    String username, userType;
-    DefaultListModel model = new DefaultListModel();
-    int index;
-    int requestID;
-    int pane;
-    Login login;
+  Connection conn = null;
+  ResultSet rs = null;
+  PreparedStatement pst = null;
+  int curRow = 0;
+  String username, userType;
+  DefaultListModel model = new DefaultListModel();
+  int index;
+  int requestID;
+  int pane;
+  Login login;
 
-    /**
-     * Creates new form DoctorView
-     *
-     * @param doctor The username of the doctor who is logged in
-     */
-    public DoctorView(String doctor) {
-        initComponents();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
-            //JOptionPane.showMessageDialog (null, "Connected");
-            Statement statement = conn.createStatement();
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        setUsername(doctor);
-        setUserType("Doctor");
-        welcome.setText("Welcome Back, " + username + "!");
-        requestsList.setVisible(false);
+  /**
+   * Creates new form DoctorView
+   *
+   * @param doctor The username of the doctor who is logged in
+   */
+  public DoctorView(String doctor) {
+    initComponents();
+    try {
+      Class.forName("com.mysql.jdbc.Driver");
+      conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
+      //JOptionPane.showMessageDialog (null, "Connected");
+      Statement statement = conn.createStatement();
+    } catch (ClassNotFoundException | SQLException e) {
+      JOptionPane.showMessageDialog(null, e);
     }
+    setUsername(doctor);
+    setUserType("Doctor");
+    welcome.setText("Welcome Back, " + username + "!");
+    requestsList.setVisible(false);
+  }
 
-    /**
-     * Getter for the username field
-     * @return The username
-     */
-    public String getUsername() {
-        return this.username;
-    }
+  /**
+   * Getter for the username field
+   * @return The username
+   */
+  public String getUsername() {
+    return this.username;
+  }
 
     /**
      * Sets the username field

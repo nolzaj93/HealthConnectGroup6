@@ -18,7 +18,7 @@ public class RequestConversation extends javax.swing.JFrame {
   ResultSet rs=null;
   PreparedStatement pst=null;
   String element;
-  Boolean isValidConstructor=true;
+  Boolean isValidConstructor=null;
   /**
    * Creates new form RequestConversation
    * @param new_requestID
@@ -60,6 +60,7 @@ public class RequestConversation extends javax.swing.JFrame {
           element = rs.getString("Message");
           currentRequest.append(element + "\n");
         }
+        isValidConstructor = true;
       }
       else{
         JOptionPane.showMessageDialog(null, "No message added");
@@ -67,12 +68,20 @@ public class RequestConversation extends javax.swing.JFrame {
       }
       if("Doctor".equals(userType))
       {
+
+
         sql = "update health.Message set DUsername= ? where RID = ?";
         pst=conn.prepareStatement(sql);
         pst.setString(1, userID);
         String rid = Integer.toString(requestNumber);
         pst.setString(2, rid);
         pst.executeUpdate();
+        isValidConstructor = true;
+
+        if(new_requestID < 100)
+          isValidConstructor = false;
+
+
       }
 
     }
