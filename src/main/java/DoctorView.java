@@ -286,8 +286,8 @@ public final class DoctorView extends javax.swing.JFrame {
                 String element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
                 model.addElement(element);
 
-                element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
-                model.addElement(element);
+//                element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
+//                model.addElement(element);
 
                 requestsList.setModel(model);
             } catch (Exception ignored) {

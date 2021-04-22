@@ -38,13 +38,6 @@ public class NewRequests extends javax.swing.JFrame {
     }
     catch(ClassNotFoundException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
-    }finally{
-      try{
-        rs.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
     }
 
     RequestID.setText("RequestID: "+ count);
@@ -211,14 +204,7 @@ public class NewRequests extends javax.swing.JFrame {
       }
 
       catch(SQLException | HeadlessException e){
-        JOptionPane.showMessageDialog(null, e);}finally{
-        try{
-          rs.close();
-          pst.close();
-        }
-        catch(SQLException e){
-          JOptionPane.showMessageDialog(null, e);
-        }
+        JOptionPane.showMessageDialog(null, e);
       }
       PatientView j = new PatientView(userID);
       j.setVisible(true);
@@ -279,7 +265,7 @@ public class NewRequests extends javax.swing.JFrame {
   // Variables declaration - do not modify
   private javax.swing.JButton CancelButton;
   private javax.swing.JLabel PatientID;
-  private javax.swing.JLabel RequestID;
+  javax.swing.JLabel RequestID;
   private javax.swing.JLabel Title;
   private javax.swing.JButton createButton;
   private javax.swing.JLabel jLabel6;
