@@ -17,6 +17,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+/**
+ * Unit test class for RequestConversation
+ * @author austin nolz
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class RequestConversationTest {
 
@@ -38,26 +42,7 @@ public class RequestConversationTest {
       conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
-
-      String sql ="      CREATE TABLE `Request` (\n"
-          + "          `RID` varchar(255) NOT NULL,\n"
-          + "      `PUsername` varchar(255) NOT NULL,\n"
-          + "      `Date` varchar(255) NOT NULL,\n"
-          + "      `Status` varchar(255) NOT NULL\n"
-          + ")";
-      pst = conn.prepareStatement(sql);
-      pst.execute(sql);
-
-      sql ="     CREATE TABLE `Message` (\n"
-          + "          `RID` varchar(255) NOT NULL,\n"
-          + "      `DUsername` varchar(255) NOT NULL,\n"
-          + "      `TimeStamp` varchar(255) NOT NULL,\n"
-          + "      `Message` varchar(255) NOT NULL\n"
-          + ")";
-      pst = conn.prepareStatement(sql);
-      pst.execute(sql);
-
-      sql ="select RID from Request";
+      String sql ="select RID from Request";
       rs = statement.executeQuery(sql);
       while(rs.next())
         count++;
@@ -79,99 +64,17 @@ public class RequestConversationTest {
   @AfterEach
   public void tearDown() {
     requestConversation = null;
-    try {
-      String sql ="drop table Message";
-      pst = conn.prepareStatement(sql);
-      //delete from message
-      pst.setInt(1,count);
-      pst.executeUpdate(sql);
-
-
-      //delete from Request
-      sql ="drop table Request";
-      pst = conn.prepareStatement(sql);
-      pst.setInt(1,count);
-      pst.executeUpdate(sql);
-
-
-//      String sql ="select * from Message where RID=?";
-//      try
-//        pst=conn.prepareStatement(sql);
-//        String temp = Integer.toString(requestNumber);
-//        pst.setString(1, temp);
-//        rs = pst.executeQuery();
-    }
-    catch(SQLException e){
-      JOptionPane.showMessageDialog(null, e);
-    }
-
   }
 
-//  @AfterAll
-//  public void dropMessageRequestTables() {
-//    try {
-//      String sql ="drop table Message";
-//      pst = conn.prepareStatement(sql);
-//      //delete from message
-//      pst.execute(sql);
-//
-//
-//      //delete from Request
-//      sql ="drop table Request";
-//      pst = conn.prepareStatement(sql);
-//      pst.execute(sql);
-//
-//      sql = "CREATE TABLE `Request` (\n"
-//          + "                         `RID` varchar(255) NOT NULL,\n"
-//          + "                         `PUsername` varchar(255) NOT NULL,\n"
-//          + "                         `Date` varchar(255) NOT NULL,\n"
-//          + "                         `Status` varchar(255) NOT NULL\n"
-//          + ");\n"
-//          + "\n"
-//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('100','patient','2021/10/10','New');\n"
-//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('101','patient','2021/10/10','In Progress');\n"
-//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('102','patient','2021/10/10','Closed');\n"
-//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('103','patient','2021/10/10','New');\n"
-//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('104','patient','2021/10/10','Closed');\n"
-//          + "INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('105','patient','2021/10/10','In Progress');\n"
-//          + "\n";
-//
-//        sql = "CREATE TABLE `Message` (\n"
-//          + "                         `RID` varchar(255) NOT NULL,\n"
-//          + "                         `DUsername` varchar(255) NOT NULL,\n"
-//          + "                         `TimeStamp` varchar(255) NOT NULL,\n"
-//          + "                         `Message` varchar(255) NOT NULL\n"
-//          + ");\n"
-//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('100','doctor','2021/10/10','Hey');\n"
-//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('101','doctor','2021/10/10','Hey');\n"
-//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('102','doctor','2021/10/10','Hey');\n"
-//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('103','doctor','2021/10/10','Hey');\n"
-//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('104','doctor','2021/10/10','Hey');\n"
-//          + "INSERT INTO `Message` (`RID`,`DUsername`,`TimeStamp`,`Message`) VALUES ('105','doctor','2021/10/10','Hey');";
-//
-//      pst = conn.prepareStatement(sql);
-//      pst.execute(sql);
-////      String sql ="select * from Message where RID=?";
-////      try
-////        pst=conn.prepareStatement(sql);
-////        String temp = Integer.toString(requestNumber);
-////        pst.setString(1, temp);
-////        rs = pst.executeQuery();
-//    }
-//    catch(SQLException e){
-//      JOptionPane.showMessageDialog(null, e);
-//    }
-//  }
-
   /**
-   * Test Case ID:
-   * Requirement ID/Description:
-   * Purpose:
-   * Test Setup:
-   * Test Strategy:
-   * Input:
-   *
-   * Expected Output:
+   * Test Case ID: TC-RC-01
+   * Purpose: Test that invalid Patient RID is found to be invalid in constructor
+   * Test Setup: setUp method connects to database and finds next count
+   *  instances of RequestConversation and NewRequests created
+   * Input: int requestID = 0;
+   *     String username = "patient";
+   *     String userType = "Patient";
+   * Expected Output: True == !requestConversation.isValidConstructor
    */
   @Test
   public void testInvalidPatientRequestID(){
@@ -188,16 +91,15 @@ public class RequestConversationTest {
 
   }
 
-
   /**
-   * Test Case ID:
-   * Requirement ID/Description:
-   * Purpose:
-   * Test Setup:
-   * Test Strategy:
-   * Input:
-   *
-   * Expected Output:
+   * Test Case ID: TC-RC-02
+   * Purpose: Test that valid patient RID is accepted in constructor.
+   * Test Setup: SetUp method connects to database and finds next count
+   *     instances of RequestConversation and NewRequests created
+   * Input: int requestID = count;
+   *     String username = "doctor";
+   *     String userType = "Doctor";
+   * Expected Output: True == requestConversation.isValidConstructor
    */
   @Test
   public void testValidPatientRequestID(){
@@ -235,14 +137,14 @@ public class RequestConversationTest {
   }
 
   /**
-   * Test Case ID:
-   * Requirement ID/Description:
-   * Purpose:
-   * Test Setup:
-   * Test Strategy:
-   * Input:
-   *
-   * Expected Output:
+   * Test Case ID: TC-RC-03
+   * Purpose: Test that invalid Doctor RID is found to be invalid in constructor
+   * Test Setup: setUp method connects to database and finds next count
+   *  instances of RequestConversation and NewRequests created
+   * Input: int requestID = 0;
+   *     String username = "doctor";
+   *     String userType = "Doctor";
+   * Expected Output: True == !requestConversation.isValidConstructor
    */
   @Test
   public void testInvalidDoctorRequestID(){
@@ -259,26 +161,18 @@ public class RequestConversationTest {
 
   }
 
-
   /**
-   * Test Case ID:
-   * Requirement ID/Description:
-   * Purpose:
-   * Test Setup:
-   * Test Strategy:
-   * Input:
-   *
-   * Expected Output:
+   * Test Case ID: TC-RC-04
+   * Purpose: Test that valid Doctor RID is accepted in the constructor
+   * Test Setup: SetUp method connects to database and finds next count
+   *      instances of RequestConversation and NewRequests created
+   * Input: int requestID = count;
+   *     String username = "doctor";
+   *     String userType = "Doctor";
+   * Expected Output: True == requestConversation.isValidConstructor
    */
   @Test
   public void testValidDoctorRequestID(){
-//    doctorView = new DoctorView("doctor");
-//    doctorView.newRequestButtonActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
-//    doctorView.requestsList.setSelectedIndex(0);
-//    //    doctorView.requestsListValueChanged(new ListSelectionEvent(doctorView.requestsList,1,1,false));
-//    RequestConversation r = doctorView.openSelectedButtonActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
-//    r.addToRequest.setText("Test response");
-//    r.addButtonActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
 
     int requestID = count;
     String username = "doctor";
@@ -289,18 +183,5 @@ public class RequestConversationTest {
     requestConversation.backButtonActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
     requestConversation = new RequestConversation(requestID, username, userType);
     requestConversation.closeButtonActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""),"test");
-
   }
-
-
-//  @Test
-//  public void validPatientLoginTest() {
-//    login.txt_username.setText("patient");
-//    login.txt_password.setText("123");
-//    String output = login.LoginAsPatientActionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,""));
-//
-//    assertEquals("valid", output);
-//  }
-//
-
 }
