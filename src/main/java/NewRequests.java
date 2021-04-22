@@ -159,7 +159,7 @@ public class NewRequests extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to create the request?", "Create Request", JOptionPane.YES_NO_OPTION);
     if(pane==0){

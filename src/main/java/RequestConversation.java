@@ -18,6 +18,7 @@ public class RequestConversation extends javax.swing.JFrame {
   ResultSet rs=null;
   PreparedStatement pst=null;
   String element;
+  Boolean isValidConstructor=true;
   /**
    * Creates new form RequestConversation
    * @param new_requestID
@@ -62,6 +63,7 @@ public class RequestConversation extends javax.swing.JFrame {
       }
       else{
         JOptionPane.showMessageDialog(null, "No message added");
+        isValidConstructor = false;
       }
       if("Doctor".equals(userType))
       {
@@ -76,7 +78,8 @@ public class RequestConversation extends javax.swing.JFrame {
     }
 
     catch(HeadlessException | SQLException e){
-      JOptionPane.showMessageDialog(null, e);}
+      JOptionPane.showMessageDialog(null, e);
+    }
 
 
     sql = "select Status from Request where RID =?";
@@ -133,14 +136,14 @@ public class RequestConversation extends javax.swing.JFrame {
     addButton.setText("Add to Request");
     addButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        addButtonActionPerformed(evt);
+        addButtonActionPerformed(evt,"");
       }
     });
 
     closeButton.setText("Close Request");
     closeButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        closeButtonActionPerformed(evt);
+        closeButtonActionPerformed(evt,"");
       }
     });
 
@@ -208,9 +211,11 @@ public class RequestConversation extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
+  void addButtonActionPerformed(java.awt.event.ActionEvent evt, String test) {
     int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to add your message to the request?", "Add To Request", JOptionPane.YES_NO_OPTION);
+
+    if(test.equals("test"))
+      pane = -1;
     if(pane==0){
       String sql ="insert into Message (RID, DUsername, TimeStamp, Message) values (?, ?, ?, ?)";
 
@@ -261,9 +266,11 @@ public class RequestConversation extends javax.swing.JFrame {
 
   }
 
-  private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
+  void closeButtonActionPerformed(java.awt.event.ActionEvent evt, String test) {
     int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the request?", "Close Request", JOptionPane.YES_NO_OPTION);
+    if(test.equals("test"))
+      pane = -1;
+
     if(pane==0){
       String sql = "update Request set Status='Closed' where RID =?";
       try{
@@ -302,8 +309,7 @@ public class RequestConversation extends javax.swing.JFrame {
     }
   }
 
-  private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
+  void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
     try{
       rs.close();
       pst.close();
@@ -360,7 +366,7 @@ public class RequestConversation extends javax.swing.JFrame {
 
   // Variables declaration - do not modify
   private javax.swing.JButton addButton;
-  private javax.swing.JTextArea addToRequest;
+  javax.swing.JTextArea addToRequest;
   private javax.swing.JButton backButton;
   private javax.swing.JButton closeButton;
   private javax.swing.JTextArea currentRequest;

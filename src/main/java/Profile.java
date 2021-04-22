@@ -72,7 +72,7 @@ public class Profile extends javax.swing.JFrame {
     logout.setText("Logout");
     logout.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        logoutActionPerformed(evt);
+        logoutActionPerformed(evt,false);
       }
     });
 
@@ -116,27 +116,36 @@ public class Profile extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void makeRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  NewRequests makeRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     dispose();
     NewRequests n = new NewRequests(username);
     n.setVisible(true);
+    return n;
   }
 
-  private void viewRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  PatientView viewRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     dispose();
     PatientView p = new PatientView(username);
     p.setVisible(true);
+    return p;
   }
 
-  private void logoutActionPerformed(java.awt.event.ActionEvent evt) {
+  Login logoutActionPerformed(java.awt.event.ActionEvent evt,boolean test) {
     // TODO add your handling code here:
     int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
+
+    if(test)
+      pane = -1;
+
+    Login n = null;
     if(pane==0){
       dispose();
-      Login n = new Login();
-      n.setVisible(true);}
+      n = new Login();
+      n.setVisible(true);
+    }
+    return n;
   }
 
   /**
