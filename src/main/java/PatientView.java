@@ -10,16 +10,18 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public final class PatientView extends javax.swing.JFrame {
-  Connection conn=null;
-  ResultSet rs=null;
-  PreparedStatement pst=null;
-  int curRow=0;
+  Connection conn = null;
+  ResultSet rs = null;
+  PreparedStatement pst = null;
+  int curRow = 0;
   String username, userType;
   DefaultListModel model = new DefaultListModel();
   int index;
   int requestID;
+
   /**
    * Creates new form PatientView
+   *
    * @param patient
    */
   public PatientView(String patient) {
@@ -29,8 +31,7 @@ public final class PatientView extends javax.swing.JFrame {
       conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
-    }
-    catch(ClassNotFoundException | SQLException e){
+    } catch (ClassNotFoundException | SQLException e) {
       JOptionPane.showMessageDialog(null, e);
     }
     username = patient;
@@ -41,27 +42,57 @@ public final class PatientView extends javax.swing.JFrame {
 
   }
 
-  public String getUsername(){
+  /**
+   * Getter method for returning the current username.
+   *
+   * @return String username is returned.
+   */
+  public String getUsername() {
     return this.username;
   }
 
-  public void setUsername(String username){
+  /**
+   * Setter method takes in the current username and sets the username field.
+   *
+   * @param username the username to be set.
+   */
+  public void setUsername(String username) {
     this.username = username;
   }
 
-  public int getRequestID(){
+  /**
+   * Getter method for returning the requestID.
+   *
+   * @return returns the current request's ID
+   */
+  public int getRequestID() {
     return this.requestID;
   }
 
-  public void setRequestID(int requestID){
+  /**
+   * Setter method takes in the current request ID and sets the requestID field.
+   *
+   * @param requestID the requestID to be set.
+   */
+  public void setRequestID(int requestID) {
     this.requestID = requestID;
   }
 
-  public String getUserType(){
+  /**
+   * Getter method for returning the current user's type (Patient)
+   *
+   * @return returns the current user type of Patient.
+   */
+  public String getUserType() {
     return this.userType;
   }
 
-  public void setUserType(String userType){
+  /**
+   * Setter method takes in the current user type of Patient and sets the userType field.
+   *
+   * @param userType the current user type of Patient.
+   */
+  public void setUserType(String userType) {
     this.userType = userType;
   }
 
@@ -101,11 +132,11 @@ public final class PatientView extends javax.swing.JFrame {
       }
     });
 
-    jList1.setModel(new javax.swing.AbstractListModel() {
-      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-      public int getSize() { return strings.length; }
-      public Object getElementAt(int i) { return strings[i]; }
-    });
+//    jList1.setModel(new javax.swing.AbstractListModel() {
+//      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+//      public int getSize() { return strings.length; }
+//      public Object getElementAt(int i) { return strings[i]; }
+//    });
     jScrollPane1.setViewportView(jList1);
 
     jLabel1.setFont(new java.awt.Font("Eras Demi ITC", 3, 24)); // NOI18N
@@ -193,129 +224,218 @@ public final class PatientView extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void InProgressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * Patient clicks the In Progress Requests button to view current requests.
+   *
+   * @param evt ActionEvent when the In Progress Requests button is clicked.
+   */
+  public void InProgressButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     jLabel1.setText("Your Opened Requests");
     jList1.setVisible(true);
     String element;
-    String sql ="select RID,Date from Request where Status=? and PUsername=?";
+    String sql = "select RID,Date from Request where Status=? and PUsername=?";
     model.removeAllElements();
     element = "RID        Date";
     model.addElement(element);
-    try{
-      pst=conn.prepareStatement(sql);
+    try {
+      pst = conn.prepareStatement(sql);
       pst.setString(1, "In Progress");
       pst.setString(2, username);
       rs = pst.executeQuery();
-      if(rs.next()){
-        //JOptionPane.showMessageDialog(null, "Username and Password is correct");
-        element = rs.getString("RID") + "        " + rs.getString("Date");
-        model.addElement(element);
-        while (rs.next()){
-          element = rs.getString("RID") + "        " + rs.getString("Date");
-          model.addElement(element);
-        }
-        jList1.setModel(model);
-      }
-      else{
-        JOptionPane.showMessageDialog(null, "No requests are in progress.");
 
-      }
+      setInProgressRequestsDisplay(rs);
+
+    } catch (SQLException | HeadlessException e) {
+      JOptionPane.showMessageDialog(null, e);
     }
-
-    catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}
   }
 
-  private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * In progress requests which are returned to the DefaultListModel to be displayed to the patient.
+   * If no in progress requests exist, then a dialog is displayed to the user.
+   * @param rs ResultSet containing in progress requests.
+   * @return String confirming the contents of the ResultSet.
+   * @throws SQLException
+   */
+  public String setInProgressRequestsDisplay(ResultSet rs) throws SQLException {
+    String element = "";
+    String feedback = "";
+    int count = 0;
+
+    if (rs.next()) {
+      //JOptionPane.showMessageDialog(null, "Username and Password is correct");
+      element = rs.getString("RID") + "        " + rs.getString("Date");
+      model.addElement(element);
+      count++;
+      while (rs.next()) {
+        element = rs.getString("RID") + "        " + rs.getString("Date");
+        model.addElement(element);
+        count++;
+      }
+      jList1.setModel(model);
+      feedback = "in progress requests displayed";
+    } else {
+      JOptionPane.showMessageDialog(null, "No requests are in progress.");
+      feedback = "no in progress requests";
+    }
+
+    return feedback;
+  }
+
+  /**
+   * Patient clicks the New Requests button to view newly filed requests.
+   *
+   * @param evt ActionEvent when the New Requests button is clicked.
+   */
+  public void newButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     jLabel1.setText("Your New Requests");
     jList1.setVisible(true);
     String element;
-    String sql ="select RID,Date from Request where Status=? and PUsername=?";
+    String sql = "select RID,Date from Request where Status=? and PUsername=?";
     model.removeAllElements();
     element = "RID        Date";
     model.addElement(element);
-    try{
-      pst=conn.prepareStatement(sql);
+    try {
+      pst = conn.prepareStatement(sql);
       pst.setString(1, "New");
       pst.setString(2, username);
       rs = pst.executeQuery();
-      if(rs.next()){
-        //JOptionPane.showMessageDialog(null, "Username and Password is correct");
-        element = rs.getString("RID") + "        " + rs.getString("Date");
-        model.addElement(element);
-        while (rs.next()){
-          element = rs.getString("RID") + "        " + rs.getString("Date");
-          model.addElement(element);
-        }
-        jList1.setModel(model);
-      }
-      else{
-        JOptionPane.showMessageDialog(null, "No new requests.");
 
-      }
+      setNewRequestsDisplay(rs);
+
+    } catch (SQLException | HeadlessException e) {
+      JOptionPane.showMessageDialog(null, e);
     }
-
-    catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}
 
   }
 
-  private void closedButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * New requests which are returned to the DefaultListModel to be displayed to the patient.
+   * If no new requests exist, then a dialog is displayed to the user.
+   * @param rs ResultSet containing new requests.
+   * @return String confirming the contents of the ResultSet.
+   * @throws SQLException
+   */
+
+  public String setNewRequestsDisplay(ResultSet rs) throws SQLException {
+    String element = "";
+    String feedback = "";
+    int count = 0;
+
+    if (rs.next()) {
+      //JOptionPane.showMessageDialog(null, "Username and Password is correct");
+      element = rs.getString("RID") + "        " + rs.getString("Date");
+      model.addElement(element);
+      count++;
+      while (rs.next()) {
+        element = rs.getString("RID") + "        " + rs.getString("Date");
+        model.addElement(element);
+        count++;
+      }
+
+      jList1.setModel(model);
+
+      feedback = "new requests displayed";
+    } else {
+      JOptionPane.showMessageDialog(null, "No new requests.");
+      feedback = "no new requests";
+    }
+
+    return feedback;
+  }
+
+  /**
+   * Patient clicks the Closed Requests button to view completed requests.
+   *
+   * @param evt ActionEvent when the Closed Requests button is clicked.
+   */
+  public void closedButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     jLabel1.setText("Your Closed Requests");
     jList1.setVisible(true);
     String element;
-    String sql ="select RID,Date from Request where Status=? and PUsername=?";
+    String sql = "select RID,Date from Request where Status=? and PUsername=?";
     model.removeAllElements();
     element = "RID        Date";
     model.addElement(element);
-    try{
-      pst=conn.prepareStatement(sql);
+
+    try {
+      pst = conn.prepareStatement(sql);
       pst.setString(1, "Closed");
       pst.setString(2, username);
       rs = pst.executeQuery();
-      if(rs.next()){
-        //JOptionPane.showMessageDialog(null, "Username and Password is correct");
-        element = rs.getString("RID") + "        " + rs.getString("Date");
-        model.addElement(element);
-        while (rs.next()){
-          element = rs.getString("RID") + "        " + rs.getString("Date");
-          model.addElement(element);
-        }
-        jList1.setModel(model);
-      }
-      else{
-        JOptionPane.showMessageDialog(null, "No requests have been closed.");
 
-      }
+      setClosedRequestsDisplay(rs);
+
+    } catch (SQLException | HeadlessException e) {
+      JOptionPane.showMessageDialog(null, e);
     }
-
-    catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}
   }
 
-  private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * Completed requests which are returned to the DefaultListModel to be displayed to the patient.
+   * If no completed requests exist, then a dialog is displayed to the user.
+   * @param rs ResultSet containing completed requests.
+   * @return String confirming the contents of the ResultSet.
+   * @throws SQLException
+   */
+
+  public String setClosedRequestsDisplay(ResultSet rs) throws SQLException {
+    String element = "";
+    String feedback = "";
+    int count = 0;
+
+    if (rs.next()) {
+      element = rs.getString("RID") + "        " + rs.getString("Date");
+      model.addElement(element);
+      count++;
+      while (rs.next()) {
+        element = rs.getString("RID") + "        " + rs.getString("Date");
+        model.addElement(element);
+        count++;
+      }
+      jList1.setModel(model);
+
+      feedback = "closed requests displayed";
+    } else {
+      JOptionPane.showMessageDialog(null, "No requests have been closed.");
+      feedback = "no closed requests";
+    }
+    return feedback;
+  }
+
+  /**
+   * The patient may navigate to the previous screen by clicking the Back button within
+   * the GUI.
+   *
+   * @param evt ActionEvent when the Back button is clicked.
+   */
+  public void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     dispose();
     Profile p = new Profile(username);
     p.setVisible(true);
   }
 
-  private void openRequestActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * The patient may select and view a new request, in progress request, and closed request
+   * that is then displayed back to the user.
+   *
+   * @param evt ActionEvent when Open Selected Request button is clicked.
+   */
+  public void openRequestActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-    if(jList1.getSelectedIndex() != -1)
-    {
+    if (jList1.getSelectedIndex() > 0) {
       String temp_requestID = jList1.getSelectedValue().toString();
-      temp_requestID = temp_requestID.substring(0,3);
+      temp_requestID = temp_requestID.substring(0, 3);
       requestID = Integer.parseInt(temp_requestID);
       setRequestID(requestID);
       RequestConversation r = new RequestConversation(requestID, username, userType);
       dispose();
       r.setVisible(true);
-    }
-    else
+    } else
       JOptionPane.showMessageDialog(null, "Please select a request");
   }
 
@@ -328,16 +448,16 @@ public final class PatientView extends javax.swing.JFrame {
     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
      */
-    try {
-      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          javax.swing.UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
-      }
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(PatientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
+//    try {
+//      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//        if ("Nimbus".equals(info.getName())) {
+//          javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//          break;
+//        }
+//      }
+//    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+//      java.util.logging.Logger.getLogger(PatientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//    }
     //</editor-fold>
     final Login s = new Login();
     /* Create and display the form */

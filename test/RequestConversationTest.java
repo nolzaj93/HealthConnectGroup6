@@ -103,12 +103,6 @@ public class RequestConversationTest {
     }
     catch(SQLException e){
       JOptionPane.showMessageDialog(null, e);
-    }finally {
-      try {
-        rs.close();
-      } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, e);
-      }
     }
 
   }
@@ -137,12 +131,6 @@ public class RequestConversationTest {
     }
     catch(SQLException e){
       JOptionPane.showMessageDialog(null, e);
-    }finally {
-      try {
-        rs.close();
-      } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, e);
-      }
     }
   }
 

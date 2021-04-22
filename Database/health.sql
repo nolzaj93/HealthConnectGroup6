@@ -26,6 +26,12 @@ CREATE TABLE `Request` (
                          `Status` varchar(255) NOT NULL
 );
 
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('100','patient','2021/10/10','New')
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('101','patient','2021/10/10','In Progress')
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('102','patient','2021/10/10','Closed')
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('103','patient','2021/10/10','New')
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('104','patient','2021/10/10','Closed')
+INSERT INTO `Request` (`RID`,`PUsername`,`Date`,`Status`) VALUES ('105','patient','2021/10/10','In Progress')
 
 CREATE TABLE `Message` (
                          `RID` varchar(255) NOT NULL,

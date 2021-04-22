@@ -6,21 +6,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public final class DoctorView extends javax.swing.JFrame {
-  Connection conn=null;
-  ResultSet rs=null;
-  PreparedStatement pst=null;
-  int curRow=0;
+  Connection conn = null;
+  ResultSet rs = null;
+  PreparedStatement pst = null;
+  int curRow = 0;
   String username, userType;
   DefaultListModel model = new DefaultListModel();
   int index;
   int requestID;
+  int pane;
+  Login login;
+
   /**
    * Creates new form DoctorView
-   * @param doctor
+   *
+   * @param doctor The username of the doctor who is logged in
    */
   public DoctorView(String doctor) {
     initComponents();
@@ -29,8 +32,7 @@ public final class DoctorView extends javax.swing.JFrame {
       conn = DriverManager.getConnection("jdbc:mysql://localhost/health", "root", "");
       //JOptionPane.showMessageDialog (null, "Connected");
       Statement statement = conn.createStatement();
-    }
-    catch(ClassNotFoundException | SQLException e){
+    } catch (ClassNotFoundException | SQLException e) {
       JOptionPane.showMessageDialog(null, e);
     }
     setUsername(doctor);
@@ -38,27 +40,52 @@ public final class DoctorView extends javax.swing.JFrame {
     welcome.setText("Welcome Back, " + username + "!");
     requestsList.setVisible(false);
   }
-  public String getUsername(){
+
+  /**
+   * Getter for the username field
+   * @return The username
+   */
+  public String getUsername() {
     return this.username;
   }
 
-  public void setUsername(String username){
+  /**
+   * Sets the username field
+   * @param username Value to set the username field to
+   */
+  public void setUsername(String username) {
     this.username = username;
   }
 
-  public int getRequestID(){
+  /**
+   * Getter for the requestID field
+   * @return The requestID
+   */
+  public int getRequestID() {
     return this.requestID;
   }
 
-  public void setRequestID(int requestID){
+  /**
+   * Sets the requestID field
+   * @param requestID Value to set the requestID field to
+   */
+  public void setRequestID(int requestID) {
     this.requestID = requestID;
   }
 
-  public String getUserType(){
+  /**
+   * Getter for the userType field
+   * @return The userType
+   */
+  public String getUserType() {
     return this.userType;
   }
 
-  public void setUserType(String userType){
+  /**
+   * Sets the userType field
+   * @param userType Value to set the userType field to
+   */
+  public void setUserType(String userType) {
     this.userType = userType;
   }
 
@@ -91,9 +118,15 @@ public final class DoctorView extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
     requestsList.setModel(new javax.swing.AbstractListModel() {
-      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-      public int getSize() { return strings.length; }
-      public Object getElementAt(int i) { return strings[i]; }
+      String[] strings = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+
+      public int getSize() {
+        return strings.length;
+      }
+
+      public Object getElementAt(int i) {
+        return strings[i];
+      }
     });
     requestsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
       public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -213,97 +246,138 @@ public final class DoctorView extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
+  /**
+   * The method that runs when the new requests button is clicked, it shows only the new requests.
+   * @param evt The ActionEvent created by the user clicking the button
+   */
   void newRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-    viewedRequests.setText("New Requests");
-    requestsList.setVisible(true);
-    String element;
-    String sql ="select * from Request where Status=?";
-    model.removeAllElements();
-    element = "RID        Date                                        Patient Username";
-    model.addElement(element);
-    try{
-      pst=conn.prepareStatement(sql);
+    try {
+      viewedRequests.setText("New Requests");
+      requestsList.setVisible(true);
+      String element;
+      String sql = "select * from Request where Status=?";
+      model.removeAllElements();
+      element = "RID        Date                                        Patient Username";
+      model.addElement(element);
+
+
+      pst = conn.prepareStatement(sql);
       pst.setString(1, "New");
       rs = pst.executeQuery();
-      if(rs.next()){
-        //JOptionPane.showMessageDialog(null, "Username and Password is correct");
-        element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
-        model.addElement(element);
-        if(rs.next()){
-          element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
-          model.addElement(element);
-        }
-        requestsList.setModel(model);
-      }
-      else{
-        JOptionPane.showMessageDialog(null, "No new requests created.");
+      getNewRequests(rs.next());
 
-      }
-    }
-
-    catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
+      rs.close();
+      pst.close();
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(null, e);
     }
   }
 
-  private void inProgressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * This method populates the model with the new requests from the database and returns a value specifying if there
+   *      any new requests.
+   * @param newRequests Parameter that specifies if there are any new requests
+   * @return A string describing if there are any new requests
+   */
+  String getNewRequests(boolean newRequests) {
+    if (newRequests) {
+      try {
+        //JOptionPane.showMessageDialog(null, "Username and Password is correct");
+        String element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
+        model.addElement(element);
+
+//                element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
+//                model.addElement(element);
+
+        requestsList.setModel(model);
+      } catch (Exception ignored) {
+
+      }
+    } else {
+      JOptionPane.showMessageDialog(null, "No new requests created.");
+    }
+    return "has new requests " + newRequests;
+  }
+
+
+  /**
+   * The method that runs when the in progress button is clicked, it shows only the in progress requests.
+   * @param evt The ActionEvent created by the user clicking the button
+   */
+  void inProgressButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     viewedRequests.setText("In Progress Requests");
     requestsList.setVisible(true);
     String element;
-    String sql ="select distinct Request.RID, Date, PUsername from Request, Message where Request.RID = Message.RID and Request.Status=? and Message.DUsername=?";
+    String sql = "select distinct Request.RID, Date, PUsername from Request, Message where Request.RID = Message.RID and Request.Status=? and Message.DUsername=?";
     model.removeAllElements();
     element = "RID        Date                                        Patient Username";
     model.addElement(element);
-    try{
-      pst=conn.prepareStatement(sql);
+    try {
+      pst = conn.prepareStatement(sql);
       pst.setString(1, "In Progress");
       pst.setString(2, username);
       rs = pst.executeQuery();
-      if(rs.next()){
-        //JOptionPane.showMessageDialog(null, "Username and Password is correct");
-        element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
-        model.addElement(element);
-        if(rs.next()){
-          element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
-          model.addElement(element);
-        }
-        requestsList.setModel(model);
-      }
-      else{
-        JOptionPane.showMessageDialog(null, "No requests are in progress");
-
-      }
-    }
-
-    catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
+      inProgress(rs.next());
+    } catch (SQLException | HeadlessException e) {
+      JOptionPane.showMessageDialog(null, e);
     }
   }
 
-  RequestConversation openSelectedButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * This method populates the model with the in progress requests from the database and returns a value specifying
+   *      if there any in progress requests.
+   * @param newRequests Parameter that specifies if there are any in progress requests
+   * @return A string describing if there are any in progress requests
+   */
+  String inProgress(boolean newRequests) {
+    String element;
+    try {
+      if (newRequests) {
+        try {
+          //JOptionPane.showMessageDialog(null, "Username and Password is correct");
+          element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
+          model.addElement(element);
+          if (rs.next()) {
+            element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
+            model.addElement(element);
+          }
+          requestsList.setModel(model);
+        } catch (Exception ignored) {
+          JOptionPane.showMessageDialog(null, "No requests are in progress");
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, "No requests are in progress");
+      }
+    } catch (Exception ignored) {
+
+    }
+    return "has in progress requests " + newRequests;
+  }
+
+  /**
+   * The method that runs when the open request button is clicked, it shows the request on the screen.
+   * @param evt The ActionEvent created by the user clicking the button
+   */
+  void openSelectedButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-    if(requestsList.getSelectedIndex() != -1)
-    {
-      String temp_requestID = requestsList.getSelectedValue().toString();
-      temp_requestID = temp_requestID.substring(0,3);
-      requestID = Integer.parseInt(temp_requestID);
-      setRequestID(requestID);
+    openRequest(requestsList.getSelectedIndex());
+  }
+
+  /**
+   * This method opens the selected request and displays it on the screen and returns a value indicating if the
+   *      selected index was valid.
+   * @param index Parameter that specifies the index of the request that is selected
+   * @return A string describing if the index is valid
+   */
+  String openRequest(int index) {
+    boolean validIndex = index != -1;
+    try {
+      if (validIndex) {
+        String temp_requestID = requestsList.getSelectedValue().toString();
+        temp_requestID = temp_requestID.substring(0, 3);
+        requestID = Integer.parseInt(temp_requestID);
+        setRequestID(requestID);
 //      try{
 //        rs.close();
 //        pst.close();
@@ -311,68 +385,89 @@ public final class DoctorView extends javax.swing.JFrame {
 //      catch(SQLException e){
 //        JOptionPane.showMessageDialog(null, e);
 //      }
-      RequestConversation r = new RequestConversation(requestID, username, userType);
-      dispose();
-      r.setVisible(true);
-      return r;
+        RequestConversation r = new RequestConversation(requestID, username, userType);
+        dispose();
+        r.setVisible(true);
+      } else {
+        JOptionPane.showMessageDialog(null, "Please select a request");
+      }
+    } catch (Exception ignored) {
+
     }
-    else
-      JOptionPane.showMessageDialog(null, "Please select a request");
-    return null;
+
+    return "valid index: " + validIndex;
   }
 
-  private void closeRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * The method that runs when the close request button is clicked, it shows the request on the screen.
+   * @param evt The ActionEvent created by the user clicking the button
+   */
+  void closeRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     viewedRequests.setText("Closed Requests");
     requestsList.setVisible(true);
     String element;
-    String sql ="select Distinct Request.RID, Date, PUsername from Request, Message where Request.RID = Message.RID and Request.Status=? and Message.DUsername=?";
+    String sql = "select Distinct Request.RID, Date, PUsername from Request, Message where Request.RID = Message.RID and Request.Status=? and Message.DUsername=?";
     model.removeAllElements();
     element = "RID        Date                                        Patient Username";
     model.addElement(element);
-    try{
-      pst=conn.prepareStatement(sql);
+    try {
+      pst = conn.prepareStatement(sql);
       pst.setString(1, "Closed");
       pst.setString(2, username);
       rs = pst.executeQuery();
-      if(rs.next()){
+      closeRequest(rs.next());
+    } catch (SQLException | HeadlessException e) {
+      JOptionPane.showMessageDialog(null, e);
+    }
+  }
+
+  /**
+   * This method populates the model with the closed requests from the database and returns a value specifying
+   *      if there any closed requests.
+   * @param moreRequests Parameter that specifies if there are any closed requests
+   * @return A string describing if there are any closed requests
+   */
+  String closeRequest(boolean moreRequests) {
+    try {
+      if (moreRequests) {
         //JOptionPane.showMessageDialog(null, "Username and Password is correct");
-        element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
+        String element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
         model.addElement(element);
-        if (rs.next()){
+        if (rs.next()) {
           element = rs.getString("RID") + "        " + rs.getString("Date") + "           " + rs.getString("PUsername");
           model.addElement(element);
         }
         requestsList.setModel(model);
-      }
-      else{
+      } else {
         JOptionPane.showMessageDialog(null, "No requests have been closed.");
 
       }
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(null, "No requests have been closed.");
     }
-
-    catch(SQLException | HeadlessException e){
-      JOptionPane.showMessageDialog(null, e);}finally{
-      try{
-        rs.close();
-        pst.close();
-      }
-      catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-      }
-    }
+    return "request closed: " + moreRequests;
   }
 
+  /**
+   * The method that runs when an item is selected in the list of requests and sets the index field to the value of
+   *      the index of the request that was selected.
+   * @param evt The ActionEvent created by the user clicking the button
+   */
   void requestsListValueChanged(javax.swing.event.ListSelectionEvent evt) {
     // TODO add your handling code here:
-    if (requestsList.getSelectedIndex() == -1){
+    if (requestsList.getSelectedIndex() == -1) {
       //Nothing was selected.  Do nothing
-    }
-    else
+    } else
       index = requestsList.getSelectedIndex();
   }
 
-  private void logoutActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * The method that runs when the logout button is clicked, it shows a dialog asking if the user is sure and if
+   *      the 'yes' option is selected the user is taken to the login screen.
+   * @param evt The ActionEvent created by the user clicking the button
+   */
+  void logoutActionPerformed(java.awt.event.ActionEvent evt) {
 //    // TODO add your handling code here:
 //    try{
 //      rs.close();
@@ -381,32 +476,31 @@ public final class DoctorView extends javax.swing.JFrame {
 //    catch(SQLException e){
 //      JOptionPane.showMessageDialog(null, e);
 //    }
-    int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
-    if(pane==0){
+    pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
+    if (pane == 0) {
       dispose();
-      Login n = new Login();
-      n.setVisible(true);}
+      login = new Login();
+      login.setVisible(true);
+    }
   }
 
   /**
    * @param args the command line arguments
    */
-  public static void main(String args[]) {
+  public static void main(String args[]) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
     /* Set the Nimbus look and feel */
     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
      */
-    try {
-      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          javax.swing.UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
+
+    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+      if ("Nimbus".equals(info.getName())) {
+        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+        break;
       }
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(DoctorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+
     //</editor-fold>
     final Login s = new Login();
     /* Create and display the form */
@@ -429,7 +523,7 @@ public final class DoctorView extends javax.swing.JFrame {
   private javax.swing.JButton newRequestButton;
   private javax.swing.JButton openSelectedButton;
   javax.swing.JList requestsList;
-  private javax.swing.JLabel viewedRequests;
+  javax.swing.JLabel viewedRequests;
   private javax.swing.JLabel welcome;
   // End of variables declaration
 }
