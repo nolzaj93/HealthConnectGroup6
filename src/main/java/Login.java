@@ -155,9 +155,7 @@ public class Login extends javax.swing.JFrame {
   }// </editor-fold>
 
   public String LoginAsPatientActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
     String sql ="select * from Patient where username=? and password=?";
-    String ret;
     try{
 
       Class.forName("com.mysql.jdbc.Driver");
@@ -181,26 +179,24 @@ public class Login extends javax.swing.JFrame {
         Profile s= new Profile(username);
         s.setVisible(true);
         dispose();
-        ret = "valid";
+        return "valid";
       }
       else{
         JOptionPane.showMessageDialog(null, "Incorrect username or password.  Please try again.");
-        ret = "invalid";
+        return "invalid";
       }
     }
 
     catch(ClassNotFoundException | HeadlessException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
-      ret = "error";
+      return "error";
     }
 
-    return ret;
+
   }
 
   public String LoginAsDoctorActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
     String sql ="select * from Doctor where username=? and password=?";
-    String ret;
     try{
 
       Class.forName("com.mysql.jdbc.Driver");
@@ -221,29 +217,27 @@ public class Login extends javax.swing.JFrame {
         DoctorView d= new DoctorView(username);
         d.setVisible(true);
         dispose();
-        ret = "valid";
+        return "valid";
       }
       else{
         JOptionPane.showMessageDialog(null, "Incorrect username or password.  Please try again.");
-        ret = "invalid";
+        return "invalid";
 
       }
     }
 
     catch(ClassNotFoundException | HeadlessException | SQLException e){
       JOptionPane.showMessageDialog(null, e);
-      ret = "error";
+      return "error";
     }
 
-    return ret;
+
   }
 
   private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
   }
 
   private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
   }
 
   /**

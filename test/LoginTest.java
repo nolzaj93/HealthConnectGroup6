@@ -32,8 +32,9 @@ public class LoginTest {
 
   /**
    * Test Case ID: TC-L-01 Purpose: Test that a valid login is accepted by the query to the MySQL
-   * database Test Setup: An instance of Login name login is created Input: -txt_username is set to
-   * patient -txt_password is set to 123 - (valid test credentials in schema) Expected Output:
+   * database Test Setup: An instance of Login name login is created Input:
+   * -txt_username is set to patient
+   * -txt_password is set to 123 - (valid test credentials in schema) Expected Output:
    * "valid"
    */
   @Test
@@ -47,9 +48,12 @@ public class LoginTest {
   }
 
   /**
-   * Test Case ID: TC-L-02 Purpose: Test that an empty patient login is not accepted by the query to
-   * the MySQL database Test Setup: An instance of Login name login is created Input: -txt_username
-   * is set to "" empty string -txt_password is set to "" - (empty test credentials in schema)
+   * Test Case ID: TC-L-02
+   * Purpose: Test that an empty patient login is not accepted by the query to
+   * the MySQL database
+   * Test Setup: An instance of Login name login is created
+   * Input: -txt_username is set to "" empty string
+   *        -txt_password is set to "" - (empty test credentials in schema)
    * Expected Output: "invalid"
    */
   @Test
@@ -63,10 +67,13 @@ public class LoginTest {
   }
 
   /**
-   * Test Case ID: TC-L-03 Purpose: Test that a valid doctor login is accepted by the query to the
-   * MySQL database Test Setup: An instance of Login name login is created Input: -txt_username is
-   * set to doctor -txt_password is set to 123 - (valid test credentials in schema) Expected Output:
-   * "valid"
+   * Test Case ID: TC-L-03
+   * Purpose: Test that a valid doctor login is accepted by the query to the
+   * MySQL database
+   * Test Setup: An instance of Login name login is created
+   * Input: -txt_username is set to doctor
+   * -txt_password is set to 123 - (valid test credentials in schema)
+   * Expected Output: "valid"
    */
   @Test
   public void validDoctorLoginTest() {
@@ -79,10 +86,13 @@ public class LoginTest {
   }
 
   /**
-   * Test Case ID: TC-L-04 Purpose: Test that an empty doctor login is not accepted by the query to
-   * the MySQL database Test Setup: An instance of Login name login is created Input: -txt_username
-   * is set to "" empty string -txt_password is set to "" - (empty test credentials) Expected
-   * Output: "invalid"
+   * Test Case ID: TC-L-04
+   * Purpose: Test that an empty doctor login is not accepted by the query to
+   * the MySQL database
+   * Test Setup: An instance of Login name login is created
+   * Input: -txt_username is set to "" empty string
+   *       -txt_password is set to "" - (empty test credentials)
+   * Expected Output: "invalid"
    */
   @Test
   public void emptyDoctorLoginTest() {
@@ -95,9 +105,12 @@ public class LoginTest {
   }
 
   /**
-   * Test Case ID: TC-L-05 Purpose: Test that invalid patient login returns "error" by the query to
-   * the MySQL database Test Setup: An instance of Login name login is created Input: -txt_username
-   * is set to "sql error" -txt_password is set to empty string "" - (invalid test credentials)
+   * Test Case ID: TC-L-05
+   * Purpose: Test that invalid patient login returns "error" by the query to
+   * the MySQL database
+   * Test Setup: An instance of Login name login is created
+   * Input: -txt_username is set to "sql error"
+   * -txt_password is set to empty string "" - (invalid test credentials)
    * Expected Output: "error"
    */
   @Test
@@ -111,9 +124,12 @@ public class LoginTest {
   }
 
   /**
-   * Test Case ID: TC-L-06 Purpose: Test that invalid patient login returns "error" by the query to
-   * the MySQL database Test Setup: An instance of Login name login is created Input: -txt_username
-   * is set to "sql error" -txt_password is set to empty string "" - (invalid test credentials)
+   * Test Case ID: TC-L-06
+   * Purpose: Test that invalid patient login returns "error" by the query to
+   * the MySQL database
+   * Test Setup: An instance of Login name login is created
+   * Input: -txt_username is set to "sql error"
+   * -txt_password is set to empty string "" - (invalid test credentials)
    * Expected Output: "error"
    */
   @Test
