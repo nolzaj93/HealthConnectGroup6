@@ -51,6 +51,7 @@ public class PatientViewTest {
             pst.setString(1, "Closed");
             pst.setString(2, username);
             rs = pst.executeQuery();
+
             assertEquals("closed requests displayed", patientView.setClosedRequestsDisplay(rs));
 
         } catch (SQLException | HeadlessException e) {

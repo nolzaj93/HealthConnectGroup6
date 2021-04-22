@@ -261,14 +261,17 @@ public final class PatientView extends javax.swing.JFrame {
     public String setInProgressRequestsDisplay(ResultSet rs) throws SQLException {
         String element = "";
         String feedback = "";
+        int count = 0;
 
         if (rs.next()) {
             //JOptionPane.showMessageDialog(null, "Username and Password is correct");
             element = rs.getString("RID") + "        " + rs.getString("Date");
             model.addElement(element);
+            count++;
             while (rs.next()) {
                 element = rs.getString("RID") + "        " + rs.getString("Date");
                 model.addElement(element);
+                count++;
             }
             jList1.setModel(model);
             feedback = "in progress requests displayed";
@@ -319,14 +322,17 @@ public final class PatientView extends javax.swing.JFrame {
     public String setNewRequestsDisplay(ResultSet rs) throws SQLException {
         String element = "";
         String feedback = "";
+        int count = 0;
 
         if (rs.next()) {
             //JOptionPane.showMessageDialog(null, "Username and Password is correct");
             element = rs.getString("RID") + "        " + rs.getString("Date");
             model.addElement(element);
+            count++;
             while (rs.next()) {
                 element = rs.getString("RID") + "        " + rs.getString("Date");
                 model.addElement(element);
+                count++;
             }
 
             jList1.setModel(model);
@@ -379,14 +385,16 @@ public final class PatientView extends javax.swing.JFrame {
     public String setClosedRequestsDisplay(ResultSet rs) throws SQLException {
         String element = "";
         String feedback = "";
+        int count = 0;
 
         if (rs.next()) {
             element = rs.getString("RID") + "        " + rs.getString("Date");
             model.addElement(element);
-
+            count++;
             while (rs.next()) {
                 element = rs.getString("RID") + "        " + rs.getString("Date");
                 model.addElement(element);
+                count++;
             }
             jList1.setModel(model);
 
