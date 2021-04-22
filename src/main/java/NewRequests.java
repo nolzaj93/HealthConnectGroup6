@@ -159,12 +159,32 @@ public class NewRequests extends javax.swing.JFrame {
     pack();
   }// </editor-fold>
 
-  private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * ActionEvent when the create button is clicked to submit a new request.
+   * @param evt ActionEvent when create button clicked.
+   */
+  public void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-    int pane = JOptionPane.showConfirmDialog(null, "Are you sure you want to create the request?", "Create Request", JOptionPane.YES_NO_OPTION);
+    int pane = JOptionPane.showConfirmDialog(null,
+            "Are you sure you want to create the request?",
+            "Create Request", JOptionPane.YES_NO_OPTION);
+
+    createNewRequest(pane);
+  }
+
+  /**
+   * The confirmation dialog box to create a new request returns an int value with 0
+   * indicating "Yes" and 1 indicating "No".
+   * @param pane the window pane value selected by the user.
+   * @return
+   */
+  public String createNewRequest(int pane){
+
+    String feedback = "";
+
     if(pane==0){
       String sql ="insert into Message (RID, DUsername, TimeStamp, Message) values (?, ?, ?, ?)";
-
+      feedback = "request created";
       try{
         pst=conn.prepareStatement(sql);
         String temp = Integer.toString(count);
@@ -203,14 +223,26 @@ public class NewRequests extends javax.swing.JFrame {
       PatientView j = new PatientView(userID);
       j.setVisible(true);
       dispose();
+    }else{
+      feedback = "request canceled";
     }
+
+    return feedback;
   }
 
-  private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  /**
+   * Cancel button is clicked to remove the NewRequests component and return the user
+   * to their Profile.
+   * @param evt ActionEvent passed when cancel is clicked.
+   * @return boolean = true confirming user is back at their profile.
+   */
+  public boolean CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     Profile p = new Profile(userID);
     p.setVisible(true);
     dispose();
+
+    return p.isVisible();
   }
 
   /**
